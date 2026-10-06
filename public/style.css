@@ -1,0 +1,96 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+header { background: #0b5c3f; color: #fff; padding: 22px 24px; }
+header h1 { margin: 0 0 4px; font-size: 24px; }
+header .sub { margin: 0; opacity: .85; font-size: 14px; }
+main { max-width: 1080px; margin: 0 auto; padding: 20px; }
+.card { background: #fff; border-radius: 10px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.card h2 { margin-top: 0; font-size: 18px; color: #0b5c3f; }
+.row { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 12px; }
+label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; min-width: 180px; flex: 1; }
+input[type=text], select, textarea { padding: 9px 10px; border: 1px solid #cbd3da; border-radius: 6px; font-size: 14px; font-weight: 400; width: 100%; }
+button { background: #0b5c3f; color: #fff; border: none; border-radius: 6px; padding: 10px 18px; font-size: 14px; cursor: pointer; margin: 6px 6px 6px 0; }
+button:hover:not(:disabled) { background: #09492f; }
+button:disabled { opacity: .5; cursor: default; }
+button.primary { background: #1a7f4e; font-size: 16px; padding: 12px 26px; }
+button.danger { background: #b3372f; }
+button.ghost { background: #fff; color: #0b5c3f; border: 1px solid #0b5c3f; }
+button.ghost:hover:not(:disabled) { background: #eef5f1; }
+.hint { font-size: 13px; color: #666; }
+.status { font-size: 14px; margin: 8px 0; }
+.status.error { color: #b3372f; font-weight: 600; }
+.status.ok { color: #0b5c3f; }
+.tablewrap { overflow-x: auto; max-height: 420px; overflow-y: auto; border: 1px solid #e3e7eb; border-radius: 6px; margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { padding: 8px 10px; border-bottom: 1px solid #eef1f4; text-align: left; vertical-align: top; }
+th { background: #f0f4f2; position: sticky; top: 0; }
+.reason { color: #0b5c3f; font-style: italic; }
+#qrWrap { margin-top: 12px; }
+#qr { width: 260px; height: 260px; border: 1px solid #ddd; border-radius: 8px; }
+.log { background: #101418; color: #c9f2d8; padding: 14px; border-radius: 8px; max-height: 320px; overflow-y: auto; font-size: 13px; white-space: pre-wrap; }
+footer { text-align: center; color: #888; font-size: 12px; padding: 16px; }
+a { color: #0b5c3f; }
+code { background: #eef1f4; padding: 1px 5px; border-radius: 4px; }
+
+/* --- Animated activity feed (live backend stages) --- */
+.activity { margin: 10px 0; display: flex; flex-direction: column; gap: 6px; }
+.activity:empty { margin: 0; }
+.act-row { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #444;
+  background: #f7faf9; border: 1px solid #e6efeb; border-radius: 8px; padding: 8px 12px;
+  animation: slideIn .3s ease; }
+.act-row.done { color: #0b5c3f; }
+.act-row.done .act-label { opacity: .8; }
+.act-row.failed-msg { color: #b3372f; background: #fdf3f2; border-color: #f3d7d4; font-weight: 600; }
+.spinner { width: 16px; height: 16px; flex: none; border: 2px solid #cfe3d8; border-top-color: #0b5c3f;
+  border-radius: 50%; animation: spin .8s linear infinite; }
+.act-check { color: #0b5c3f; font-weight: 700; flex: none; }
+.act-x { color: #b3372f; font-weight: 700; flex: none; }
+.act-label { flex: 1; }
+.dots { display: inline-flex; gap: 3px; margin-left: 4px; flex: none; }
+.dots i { width: 5px; height: 5px; border-radius: 50%; background: #0b5c3f; animation: bounceDots 1.2s infinite; }
+.dots i:nth-child(2) { animation-delay: .15s; }
+.dots i:nth-child(3) { animation-delay: .3s; }
+.act-progress { display: flex; align-items: center; gap: 10px; animation: slideIn .3s ease; }
+.act-bar { flex: 1; height: 10px; background: #e8efec; border-radius: 6px; overflow: hidden; }
+.act-fill { height: 100%; width: 0; background: linear-gradient(90deg, #0b5c3f, #1a7f4e); border-radius: 6px;
+  transition: width .5s ease; position: relative; overflow: hidden; }
+.act-fill::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  animation: shimmer 1.6s infinite; }
+.act-count { font-size: 12.5px; color: #0b5c3f; font-weight: 700; white-space: nowrap; }
+
+/* --- QR connect animations --- */
+#qrWrap.pop { animation: popIn .45s cubic-bezier(.2, 1.4, .4, 1); }
+.scanpulse { display: flex; align-items: center; gap: 10px; margin-top: 10px;
+  font-size: 14px; color: #0b5c3f; font-weight: 600; animation: slideIn .3s ease; }
+.pdot { width: 12px; height: 12px; border-radius: 50%; background: #1a7f4e; flex: none;
+  animation: pulse 1.4s ease-in-out infinite; }
+.bigcheck { margin-top: 12px; }
+.bigcheck svg { width: 84px; height: 84px; }
+.bigcheck.show svg circle { fill: none; stroke: #1a7f4e; stroke-width: 3;
+  stroke-dasharray: 157; stroke-dashoffset: 157; animation: drawCheck .7s ease forwards; }
+.bigcheck.show svg path { fill: none; stroke: #1a7f4e; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 40; stroke-dashoffset: 40; animation: drawCheck .45s .55s ease forwards; }
+
+/* --- Sending progress --- */
+.sendbar-track { height: 14px; background: #e8efec; border-radius: 8px; overflow: hidden; margin: 10px 0 4px; }
+.sendbar-fill { height: 100%; width: 0; background: linear-gradient(90deg, #0b5c3f, #2aa06a); border-radius: 8px;
+  transition: width .6s ease; position: relative; overflow: hidden; }
+.sendbar-fill::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: shimmer 1.8s infinite; }
+.sendbar-label { font-size: 13px; color: #0b5c3f; font-weight: 600; margin-bottom: 6px; }
+.sendstate { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; margin: 8px 0; color: #666; }
+.sendstate.active { color: #0b5c3f; }
+.sendstate.done { color: #0b5c3f; }
+.sendstate.done .pdot { animation: none; }
+.logline { animation: slideIn .25s ease; }
+
+/* --- Keyframes (CSS-only, no libraries) --- */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .5; } }
+@keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes popIn { 0% { opacity: 0; transform: scale(.7); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes bounceDots { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-5px); opacity: 1; } }
+@keyframes drawCheck { to { stroke-dashoffset: 0; } }

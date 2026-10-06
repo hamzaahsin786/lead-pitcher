@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Pitcher — B2B WhatsApp Outreach</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Lead Pitcher</h1>
+  <p class="sub">Find businesses → filter with AI → review → pitch on WhatsApp. 100% free tools.</p>
+</header>
+
+<main>
+  <!-- STEP 1 -->
+  <section class="card" id="step1">
+    <h2>1 · Find businesses</h2>
+    <div class="row">
+      <label>City / area <input id="city" type="text" value="Lahore" placeholder="e.g. Lahore"></label>
+      <label>Business type
+        <select id="type">
+          <option value="hotel">Hotels</option>
+          <option value="restaurant">Restaurants</option>
+          <option value="hospital">Hospitals</option>
+          <option value="clinic">Clinics</option>
+          <option value="pharmacy">Pharmacies</option>
+          <option value="school">Schools / Colleges</option>
+          <option value="gym">Gyms</option>
+          <option value="office">Offices</option>
+          <option value="factory">Factories</option>
+          <option value="mall">Malls / Plazas</option>
+          <option value="supermarket">Supermarkets</option>
+          <option value="bank">Banks</option>
+          <option value="cafe">Cafes</option>
+          <option value="bakery">Bakeries</option>
+          <option value="salon">Salons</option>
+        </select>
+      </label>
+      <label>…or type your own <input id="typeCustom" type="text" placeholder="e.g. guest house"></label>
+    </div>
+    <button id="btnSearch">Find businesses</button>
+    <p class="hint">Data comes from OpenStreetMap (free). Phone coverage varies — rows without a phone are skipped later.</p>
+    <div id="searchStatus" class="status"></div>
+    <div class="activity" id="searchActivity"></div>
+    <div id="results1" class="tablewrap"></div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="card" id="step2" hidden>
+    <h2>2 · Shorten the list with AI</h2>
+    <label>Your criteria (plain words)
+      <textarea id="criteria" rows="3" placeholder='e.g. only hotels in DHA or Gulberg that have a website'></textarea>
+    </label>
+    <button id="btnFilter">Filter with AI</button>
+    <button id="btnSkip" class="ghost">Skip AI filter →</button>
+    <p class="hint">Needs a free Gemini key in your <code>.env</code> file. Get one at <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>.</p>
+    <div id="filterStatus" class="status"></div>
+    <div class="activity" id="filterActivity"></div>
+    <div id="results2" class="tablewrap"></div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="card" id="step3" hidden>
+    <h2>3 · Write your pitch &amp; approve</h2>
+    <label>Pitch message (use <code>{name}</code> for the business name)
+      <textarea id="template" rows="4"></textarea>
+    </label>
+    <p class="hint">Keep it short. The opt-out line is important — never remove it.</p>
+    <div class="row">
+      <button id="btnApprove">Approve &amp; connect WhatsApp</button>
+      <span id="approveStatus" class="status"></span>
+    </div>
+    <div id="results3" class="tablewrap"></div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="card" id="step4" hidden>
+    <h2>4 · Connect WhatsApp</h2>
+    <p class="hint">Scan the QR with your phone's WhatsApp (Linked devices). You only do this once — the session is saved.</p>
+    <button id="btnConnect">Show QR code</button>
+    <div id="waStatus" class="status"></div>
+    <div id="qrWrap"><img id="qr" alt="WhatsApp QR code" hidden></div>
+    <div id="scanPulse" class="scanpulse" hidden><span class="pdot"></span><span>Waiting for you to scan the QR…</span></div>
+    <div id="waCheck" class="bigcheck" hidden>
+      <svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25"/><path d="M14 27l8 8 16-16"/></svg>
+    </div>
+  </section>
+
+  <!-- STEP 5 -->
+  <section class="card" id="step5" hidden>
+    <h2>5 · Send pitches</h2>
+    <p class="hint" id="limitsLine"></p>
+    <div class="row">
+      <button id="btnSend" class="primary">Start sending</button>
+      <button id="btnStop" class="danger" disabled>Stop</button>
+      <button id="btnCsv">Export CSV</button>
+    </div>
+    <div class="sendbar" id="sendBarWrap" hidden>
+      <div class="sendbar-track"><div class="sendbar-fill" id="sendBarFill"></div></div>
+      <div class="sendbar-label" id="sendBarLabel"></div>
+    </div>
+    <div id="sendState" class="sendstate" hidden><span class="pdot"></span><span id="sendStateText">Sending…</span></div>
+    <div id="progress" class="log" role="log">Waiting to start…</div>
+  </section>
+</main>
+
+<footer>Safety: review-first only · random delays · daily cap · never messages the same number twice.</footer>
+<script src="app.js"></script>
+</body>
+</html>
